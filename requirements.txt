@@ -1,0 +1,28 @@
+# Backend Gateway
+Flask
+Flask-CORS
+gunicorn
+
+# Agent and Orchestration
+langchain
+langgraph
+langchain-core
+langchain-community
+langchain-groq
+pydantic
+
+# Security and Guardrails
+presidio-analyzer
+presidio-anonymizer
+spacy
+
+# Sandbox
+sympy
+
+# Observability
+python-dotenv
+langsmith
+resend
+
+# Jupyter Notebook
+ipykernel
