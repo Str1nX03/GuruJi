@@ -18,11 +18,11 @@ spacy
 
 # Sandbox
 sympy
+ddgs
 
 # Observability
 python-dotenv
 langsmith
-resend
 
 # Jupyter Notebook
 ipykernel
