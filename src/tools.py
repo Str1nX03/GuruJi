@@ -4,6 +4,8 @@ from src.exception import CustomException
 from langchain_core.tools import tool
 import sympy
 from ddgs import DDGS
+import io
+from contextlib import redirect_stdout
 
 @tool
 def evaluate_math(expression: str) -> str:
@@ -27,7 +29,10 @@ def evaluate_math(expression: str) -> str:
 
     except Exception as e:
 
-        raise CustomException(e, sys)
+        error = CustomException(e, sys)
+        logging.error(error)
+
+        return f"Error evaluating math: {str(e)}. Please ensure standard mathematical syntax."
 
 @tool
 def python_executor(code: str) -> str:
@@ -42,7 +47,14 @@ def python_executor(code: str) -> str:
 
         logging.info("Executing the python code.")
 
-        code_result = exec(code)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            exec(code)
+
+        code_result = f.getvalue()
+
+        if not code_result.strip():
+            return "Code executed successfully but returned no output. Did you forget to use print()?"
 
         logging.info("Successfully executed the python code.")
 
@@ -50,8 +62,12 @@ def python_executor(code: str) -> str:
 
     except Exception as e:
 
-        raise CustomException(e, sys)
+        error = CustomException(e, sys)
+        logging.error(error)
 
+        return f"Python Error: {str(e)}. Please fix your code and try again."
+
+@tool
 def fetch_fact(query: str) -> str:
     """
     Fetches facts from the internet using the DDGS API.
@@ -64,7 +80,7 @@ def fetch_fact(query: str) -> str:
 
         logging.info("Fetching the fact.")
 
-        responses = DDGS().text(query = query, max_results=4)
+        responses = DDGS().text(query = query, max_results=3)
         
         facts = []
         for response in responses:
@@ -73,8 +89,11 @@ def fetch_fact(query: str) -> str:
 
         logging.info("Successfully fetched the fact.")
 
-        return facts
+        return "\n".join(facts)
 
     except Exception as e:
 
-        raise CustomException(e, sys)
+        error = CustomException(e, sys)
+        logging.error(error)
+
+        return f"Search Error: {str(e)}. Could not fetch facts at this time."
