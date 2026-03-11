@@ -45,7 +45,7 @@ class SupervisorAgentState(TypedDict):
     subjects: List[str]                  # List of subjects that can be taught by the agent
     major_topics: Dict[str, List[str]]   # Subjects (keys) -> Corresponding major topics (values)
 
-class PlanningAgentState(TypedDict, total=False):
+class PlanningAgentState(TypedDict):
     """
     Local state for the Planning Agent.
     Responsible for generating and structuring the curriculum.
@@ -65,7 +65,7 @@ class PlanningAgentState(TypedDict, total=False):
     subject: str                         # The subject being taught (e.g., economics vs data engineering)
     major_topic: str                     # Passed by the supervisor agent
 
-class TutorAgentState(TypedDict, total=False):
+class TutorAgentState(TypedDict):
     """
     Local state for the core Tutor Agent.
     Responsible for Socratic teaching and delivering the actual lessons.
@@ -81,7 +81,7 @@ class TutorAgentState(TypedDict, total=False):
     standard: int                        # Passed by Planning Agent
     subject: str                         # Passed by Planning Agent     
 
-class ProgressAgentState(TypedDict, total=False):
+class ProgressAgentState(TypedDict):
     """
     Local state for the Progress & Evaluation Agent.
     Responsible for tracking student performance, grading, and identifying weaknesses.
