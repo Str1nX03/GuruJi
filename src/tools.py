@@ -67,8 +67,7 @@ def python_executor(code: str) -> str:
 
         return f"Python Error: {str(e)}. Please fix your code and try again."
 
-@tool
-def fetch_fact(query: str) -> str:
+def fetch_fact(query: str) -> list:
     """
     Fetches facts from the internet using the DDGS API.
     Args:
@@ -79,17 +78,15 @@ def fetch_fact(query: str) -> str:
     try:
 
         logging.info("Fetching the fact.")
-
-        responses = DDGS().text(query = query, max_results=3)
-        
-        facts = []
-        for response in responses:
-
-            facts.append(response["body"])
+            
+        syllabus = []
+        response = DDGS().text(query = query, max_results=5)
+        for res in response:
+            syllabus.append(res["body"])
 
         logging.info("Successfully fetched the fact.")
 
-        return "\n".join(facts)
+        return syllabus
 
     except Exception as e:
 
