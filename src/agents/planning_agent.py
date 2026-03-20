@@ -20,7 +20,7 @@ class PlanningAgentState(TypedDict):
         subject (str): The specific subject being taught (e.g., to differentiate 'data collection' in Economics vs. Data Engineering).
         major_topic (str): The primary topic area assigned to this agent by the Supervisor.
     """
-    generic_data: list[str]              # General Data about the subject with respect to the topic and standard of the user
+    data: list[str]              # General Data about the subject with respect to the topic and standard of the user
     topics: list[str]                    # Nested lists containing topics for each unit
     standard: int                        # Class/standard the user is currently in
     subject: str                         # The subject being taught (e.g., economics vs data engineering)
@@ -64,10 +64,13 @@ class PlanningAgent:
             query = f"Syllabus for {subject} for {major_topic} in class {standard} in 2026"
             
             generic_data = fetch_fact(query)
+            data = []
+            for res in generic_data:
+                data.append(res[1])
 
-            logging.info(f"Planner found {len(generic_data)} data on the syllabus")
+            logging.info(f"Planner found {len(data)} data on the syllabus")
             
-            return {"generic_data": generic_data}
+            return {"data": data}
             
         except Exception as e:
             
@@ -78,7 +81,7 @@ class PlanningAgent:
             
             logging.info("Planning a curriculum")
 
-            generic_data = state["generic_data"]
+            data = state["data"]
             standard = state["standard"]
             subject = state["subject"]
             major_topic = state["major_topic"]
@@ -87,7 +90,7 @@ class PlanningAgent:
                 subject=subject,
                 standard=standard,
                 major_topic=major_topic,
-                generic_data=generic_data
+                generic_data=data
             )
 
             topics = self.llm.invoke(topic_plan_prompt).content

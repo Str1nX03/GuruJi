@@ -3,7 +3,7 @@ PLANNING_SYSTEM_PROMPT = """
     Subject: {subject}
     Standard: {standard}
     Major Topic: {major_topic}
-    Generic Data: {generic_data}
+    Generic Data: {data}
 
     Generate a structured, step-by-step sub topic that must be taught to the user.
     Make sure the sub topic is relevant to the major topic and standard of the user and leave one line after one topic.
