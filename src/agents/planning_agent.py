@@ -122,7 +122,7 @@ class PlanningAgent:
 
             logging.info("PLANNING AGENT DEACTIVATED")
             
-            return final_state
+            return final_state 
             
         except Exception as e:
             
