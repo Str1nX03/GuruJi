@@ -4,6 +4,7 @@ from src.utils import get_llm
 from typing import TypedDict
 import sys
 from langgraph.graph import StateGraph, START, END
+from src.prompts.tutor_agent_prompt import LESSON_GENERATION_PROMPT, STUDENT_INSTRUCTIONS_PROMPT
 
 
 class TutorAgentState(TypedDict):
@@ -26,6 +27,13 @@ class TutorAgent:
         try:
 
             graph = StateGraph(TutorAgentState)
+            
+            graph.add_node("generate_lessons", self._generate_lessons)
+            graph.add_node("generate_instructions", self._generate_instructions)
+
+            graph.add_edge(START, "generate_lessons")
+            graph.add_edge("generate_lessons", "generate_instructions")
+            graph.add_edge("generate_instructions", END)
 
             return graph.compile()
 
@@ -33,11 +41,25 @@ class TutorAgent:
 
             raise CustomException(e, sys)
         
-    def _generate_lessons(self, state: TutorAgentState):
+    def _generate_lessons(self, state: TutorAgentState) -> dict:
 
         try:
 
-            pass
+            subject = state["subject"]
+            standard = state["standard"]
+            topics = state["topics"]
+            lessons = []
+            
+            for topic in topics:
+                prompt = LESSON_GENERATION_PROMPT.format(
+                    subject=subject, 
+                    standard=standard, 
+                    topic=topic
+                )
+                response = self.llm.invoke(prompt)
+                lessons.append([topic, response.content])
+            
+            return {"lessons": lessons}
 
         except Exception as e:
 
@@ -47,7 +69,13 @@ class TutorAgent:
 
         try:
 
-            pass
+            subject = state["subject"]
+            standard = state["standard"]
+            
+            prompt = STUDENT_INSTRUCTIONS_PROMPT.format(subject=subject, standard=standard)
+            response = self.llm.invoke(prompt)
+            
+            return {"student_instructions": response.content.strip()}
 
         except Exception as e:
 

@@ -20,7 +20,7 @@ class PlanningAgentState(TypedDict):
         subject (str): The specific subject being taught (e.g., to differentiate 'data collection' in Economics vs. Data Engineering).
         major_topic (str): The primary topic area assigned to this agent by the Supervisor.
     """
-    data: list[str]              # General Data about the subject with respect to the topic and standard of the user
+    data: list[str]                      # General Data about the subject with respect to the topic and standard of the user
     topics: list[str]                    # Nested lists containing topics for each unit
     standard: int                        # Class/standard the user is currently in
     subject: str                         # The subject being taught (e.g., economics vs data engineering)
@@ -90,16 +90,16 @@ class PlanningAgent:
                 subject=subject,
                 standard=standard,
                 major_topic=major_topic,
-                generic_data=data
+                data=data
             )
 
             topics = self.llm.invoke(topic_plan_prompt).content
             topics = list(topics.split("\n"))
 
             un_char = ["", " ", "  ", "   ", "    "]
-            for res in topics:
-                while res in un_char:
-                    topics.remove(res)
+            for char in un_char:
+                while char in topics:
+                    topics.remove(char)
             
             logging.info("Planning curriculum completed")
             
