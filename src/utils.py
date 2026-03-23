@@ -6,11 +6,11 @@ from src.logger import logging
 from src.exception import CustomException
 load_dotenv()
 
-def get_llm(model: str | None = "llama-3.3-70b-versatile", temp: float | None = 0.1) -> ChatGroq:
+def get_llm(model: str | None = "llama-3.1-8b-instant", temp: float | None = 0.1) -> ChatGroq:
     """
     This function will return the Groq LLM .
     Args:
-        model: Groq LLM's model name, by default it is set to `llama-3.3-70b-versatile`
+        model: Groq LLM's model name, by default it is set to `llama-3.1-8b-instant`
         temp: Groq LLM's temperature will determine the randomness of the output, by default it is set to `0.1`.
     Returns:
         LLM: Groq LLM object

@@ -12,17 +12,7 @@ The lesson must be thorough enough to be the primary study material for this top
 1. Introduction:- Define the topic and its importance.
 2. Structure of the lesson:- Make sure to only prepare lessons in 2 to 4 paragraphs to explain and 2-3 bullet points to point out important notes and formulaes if needed.
 3. Content of the lesson:- Provide an in-depth exploration of the topic with technical details appropriate for standard {standard} but be concise and to the point.
-4. Detailing of the lesson:- Keep the lesson really comprehensive.
-
-Return ONLY the lesson content. Do not include titles, formatting markers like "Output:", or introductory/concluding text.
-
-Example:- 
-Input:- Topic - 1. Introduction to Probability
-        Subject - Mathematics
-        Standard - 10
-Output:- 
-
-        *complete lesson on `Introduction to Probability` for `10th` standard students in `Mathematics` in great detail*
+4. Detailing of the lesson:- Keep the lesson really comprehensive yet as short as possible.
 """
 
 STUDENT_INSTRUCTIONS_PROMPT = """
