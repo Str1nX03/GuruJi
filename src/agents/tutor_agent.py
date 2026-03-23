@@ -4,7 +4,12 @@ from src.utils import get_llm
 from typing import TypedDict
 import sys
 from langgraph.graph import StateGraph, START, END
-from src.prompts.tutor_agent_prompt import LESSON_GENERATION_PROMPT, STUDENT_INSTRUCTIONS_PROMPT
+from src.prompts.tutor_agent_prompt import (
+    FOUNDATIONAL_LESSON_PROMPT, 
+    INTERMEDIATE_LESSON_PROMPT, 
+    ADVANCED_LESSON_PROMPT, 
+    STUDENT_INSTRUCTIONS_PROMPT
+)
 
 
 class TutorAgentState(TypedDict):
@@ -49,9 +54,17 @@ class TutorAgent:
             standard = state["standard"]
             topics = state["topics"]
             lessons = []
+
+            if standard <= 4:
+                prompt_template = FOUNDATIONAL_LESSON_PROMPT
+            elif standard <= 9:
+                prompt_template = INTERMEDIATE_LESSON_PROMPT
+            else:
+                prompt_template = ADVANCED_LESSON_PROMPT
             
             for topic in topics:
-                prompt = LESSON_GENERATION_PROMPT.format(
+                
+                prompt = prompt_template.format(
                     subject=subject, 
                     standard=standard, 
                     topic=topic

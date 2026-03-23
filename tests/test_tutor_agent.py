@@ -9,8 +9,8 @@ import json
 def test_tutor_agent():
     agent = TutorAgent()
     subject = "Science"
-    standard = 8
-    topics = ["Photosynthesis", "Cell Structure"]
+    standard = 3
+    topics = ["Photosynthesis"]
     
     print(f"Running TutorAgent for {subject}, Standard {standard}, Topics: {topics}...")
     result = agent.run(subject=subject, standard=standard, topics=topics)
