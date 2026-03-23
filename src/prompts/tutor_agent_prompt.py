@@ -6,12 +6,13 @@ Topic: {topic}
 
 If the standard is between 1 to 5, then generate 5-8 sub topics with basic vocabulary and almost no complexity and technicalities.
 If the standard is between 6 to 9, then generate 8-12 sub topics with intermediate vocabulary and some complexity and technicalities.
-If the standard is between 10 to 12, then generate 12-16 sub topics with advanced vocabulary and high complexity and technicalities.
+If the standard is between 10 to 12, then generate 12-16 sub topics with advanced vocabulary and high complexity and deep in technicalities.
 
 The lesson must be thorough enough to be the primary study material for this topic. Structure the lesson with the following sections:
-1.  **Introduction**: Define the topic and its importance.
-2.  **Core Concepts**: Make few bullet points, some paragraphs, examples and mathematical formulas (especially in maths oriented subjects like mathematics, physics, machine learning, deep learning, etc) if needed and seriously dont if not necessary. 
-3.  **Detailed Explanation**: Provide an in-depth exploration of the topic with technical details appropriate for standard {standard}.
+1. Introduction:- Define the topic and its importance.
+2. Structure of the lesson:- Make sure to only prepare lessons in 2 to 4 paragraphs to explain and 2-3 bullet points to point out important notes and formulaes if needed.
+3. Content of the lesson:- Provide an in-depth exploration of the topic with technical details appropriate for standard {standard} but be concise and to the point.
+4. Detailing of the lesson:- Keep the lesson really comprehensive.
 
 Return ONLY the lesson content. Do not include titles, formatting markers like "Output:", or introductory/concluding text.
 
@@ -21,7 +22,7 @@ Input:- Topic - 1. Introduction to Probability
         Standard - 10
 Output:- 
 
-        *complete lesson on 1. Introduction to Probability for 10th standard students in Mathematics*
+        *complete lesson on `Introduction to Probability` for `10th` standard students in `Mathematics` in great detail*
 """
 
 STUDENT_INSTRUCTIONS_PROMPT = """
